@@ -1,0 +1,21 @@
+scrape_configs:
+- job_name: prometheus
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - prometheus:9090
+- job_name: blackbox
+  metrics_path: /probe
+  scrape_interval: 5s
+  params:
+    module: [http_2xx] #Look for 200 reposne
+  static_configs:
+  - targets:
+    - http://host.docker.internal:8059/healthcheck #Healthcheck API endpoint
+  relabel_configs:
+  - source_labels: [__address__]
+    target_label: __param_target
+  - source_labels: [__param_target]
+    target_label: instance
+  - target_label: __address__
+    replacement: blackbox:9115

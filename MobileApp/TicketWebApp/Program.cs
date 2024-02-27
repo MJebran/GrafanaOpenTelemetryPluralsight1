@@ -39,17 +39,6 @@ if (!app.Environment.IsDevelopment())
     
 }
 
-app.MapHealthChecks("/healthCheck", new HealthCheckOptions
-        {
-            AllowCachingResponses = false,
-            ResultStatusCodes =
-                {
-                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
-                    [HealthStatus.Degraded] = StatusCodes.Status200OK,
-                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
-                }
-        });
-
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -57,6 +46,17 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseHttpsRedirection();
+
+app.MapHealthChecks("/healthCheck", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
+});
 
 app.UseStaticFiles();
 app.UseAntiforgery();

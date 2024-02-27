@@ -1,0 +1,85 @@
+version: "3"
+
+services:
+
+  carlosdb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ticketuser
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: P@ssword1
+    volumes:
+      - ../TestTicket/20240215.01.21.01.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  blazor:
+   container_name: blazor
+   depends_on:
+     - carlosdb
+   build: ..
+   environment:
+     - ASPNETCORE_ENVIRONMENT=Production
+     - Postgres=Server=carlosdb;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1
+   ports:
+     - "4765:8080"
+   healthcheck:
+      test: curl --fail http://localhost:4765/health || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+
+  blackbox:
+    # https://github.com/prometheus/blackbox_exporter/releases
+   image: prom/blackbox-exporter:v0.23.0
+   container_name: blackbox
+   restart: unless-stopped
+   ports:
+      - "4766:9115"
+   volumes:
+      - ../blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
+   command: --config.file=/etc/blackbox/blackbox.yml
+   depends_on:
+    - blazor
+     
+  prometheus:
+    # https://github.com/prometheus/prometheus/releases
+   image: prom/prometheus:v2.43.0
+   container_name: prometheus
+   hostname: prometheus
+   restart: unless-stopped
+   ports:
+      - "4767:9090"
+   volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+   depends_on:
+      - blackbox
+
+  grafana:
+    # https://github.com/grafana/grafana/releases
+    image: grafana/grafana:9.4.7
+    container_name: grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ../grafana/provisioning:/etc/grafana/provisioning
+    restart: unless-stopped
+    user: root
+    ports:
+      - "4768:3000"
+    depends_on:
+      - prometheus     
+
+volumes:
+  prometheus:
+  grafana-data:
+     
+
