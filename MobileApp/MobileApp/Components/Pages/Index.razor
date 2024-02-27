@@ -1,0 +1,40 @@
+﻿@page "/"
+@using MobileApp.Inits
+@using TicketClassLib.Requests
+
+
+<h1 class="my-5 text-center" style="font-weight: bolder;">TicketsRUs</h1>
+
+<div class="d-flex flex-column align-content-center">
+    <a class="btn btn-primary mx-2 mb-2 p-2 my-3" href="allevents" style="text-decoration: none; background-color: #8263DB; color: white; width: 200px; border: none;">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> <h3>All Events</h3>
+    </a>
+    <a class="btn btn-primary mx-2 mb-2 p-2 my-3" href="settings" style="text-decoration: none; background-color: #8263DB; color: white; width: 200px;  border: none;">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> <h3>Settings</h3>
+    </a>
+    <a class="btn btn-primary mx-2 mb-2 p-2 my-3" href="all-tickets" style="text-decoration: none; background-color: #8263DB; color: white; width: 200px;  border: none;">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> <h3>Tickets</h3>
+    </a>
+</div>
+
+
+
+
+
+
+
+
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        //ERASE THESE LINES AT SOME POINT WHEN SYNCING IS DONE WE WILL BE EFFED
+        // await dbInit.EmptyDatabase();
+
+        // var newEvent = es.AddEvent("Lady GAGA", DateTime.UtcNow);
+        // var newRequest = new AddTicketRequest() { EventId = ""};
+        // var ticket = ts.CreateNewTicket()
+
+
+    }
+}

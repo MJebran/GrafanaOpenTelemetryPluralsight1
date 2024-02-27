@@ -1,0 +1,54 @@
+@inject ITicketService service;
+@using TicketClassLib.Data
+@using TicketClassLib.Services
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">event</th>
+            <th scope="col">is scanned</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var ticket in AllTickets)
+        {
+            <tr>
+                <th scope="row">@ticket.Id</th>
+                <td>@ticket?.Name</td>
+                <td>@ticket?.Event?.Name</td>
+                <td>@ticket?.Isscanned</td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+
+@code {
+    public List<Ticket>? AllTickets { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllTickets = await service.GetAll();
+
+        // TODO subscribe to the thingy
+        service.TicketsHaveChanged += async (s, e) => await systemUpdated();
+    }
+
+    async Task systemUpdated()
+    {
+        await InvokeAsync(async () =>
+        {
+            try
+            {
+                AllTickets = await service.GetAll();
+            }
+            catch
+            {
+                
+            }
+            StateHasChanged();  
+        });
+    }
+}

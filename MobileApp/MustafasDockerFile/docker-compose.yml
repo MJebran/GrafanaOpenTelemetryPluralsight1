@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    volumes: 
+      - ../TestsRUS/20240212.07.58.45.sql:/docker-entrypoint-initdb.d/A_Init.sql
+    networks:
+      - databaseTunnel
+
+  blazorapp:
+    build: ..
+    ports:
+      - 8059:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - TicketsDB=user id = postgres; password=postgres; server=db; database= postgres; port= 5441
+    depends_on:
+      - db
+    networks:
+      - databaseTunnel
+    healthcheck:
+      test: weget --tries=1 http://localhost:8080/healthcheck || exit 1
+      interval: 3s
+      retries: 1
+      start_period: 5s
+      timeout: 1s
+    restart: unless-stopped
+
+networks:
+  databaseTunnel:
+    driver: bridge

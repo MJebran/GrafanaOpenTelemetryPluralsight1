@@ -1,0 +1,48 @@
+﻿@page "/allevents"
+@using MobileApp.Services
+@using TicketClassLib.Exceptions
+@inject IEventService eventService
+@inject NavigationManager NavManager;
+@inject DataSync dataSync;
+
+<h3>All Events</h3>
+<p>@errMessage</p>
+<div class="container" style="max-width: 1200px;">
+    <div class="row">
+        @foreach (var eve in eventsList)
+        {
+            <div class="col-md-4 m-4 p-4" style="background-color: #D9D9D9; height: 200px; max-width: 85vw;">
+                <h3><strong>@eve.Name</strong></h3>
+                <p><strong>Date:</strong> @eve.Eventdate</p>
+                <button @onclick="() => HandleClick(eve.Id)" class="btn btn-primary" style="background-color: #8263DB; color: white;">Scan for this Event</button>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    public List<Event> eventsList { get; set; } = new();
+    private string errMessage { get; set; } = "";
+    protected override async Task OnInitializedAsync()
+    {
+        eventsList = await eventService.GetAll();
+        StateHasChanged();
+        try
+        {
+            await dataSync.DoSync();
+        }
+        catch (AlreadyScannedTicketException e)
+        {
+            errMessage = "A TICKET WAS ALREADY SCANNED";
+        }
+        catch
+        {
+            errMessage = "Please refresh page, something has gone awry";
+        }
+    }
+
+    public void HandleClick(int ev)
+    {
+        NavManager.NavigateTo($"/camerapage/{ev}");
+    }
+}

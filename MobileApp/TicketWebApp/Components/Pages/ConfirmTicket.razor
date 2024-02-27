@@ -1,0 +1,97 @@
+﻿@page "/confirm/{ev:int}"
+@using System.Net.Mail
+@using TicketClassLib.Requests
+@using TicketWebApp.Services
+@rendermode InteractiveServer
+
+@inject NavigationManager NavManager;
+@inject IEventService eventService
+@inject ITicketService ticketService
+@inject EmailSender sender
+
+
+<div style="max-width:600px; margin-left: auto; margin-right: auto;">
+    <h1 class="my-5">Confirm Ticket for @MyEvent?.Name</h1>
+
+    <h3 class="mt-4">@MyEvent?.Name</h3>
+    <p><strong>Date:</strong> @MyEvent?.Eventdate</p>
+
+    <hr />
+    <form @onsubmit="HandleSubmit" @formname="enter-info-for-ticket-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input class="form-control" type="text" @bind="name" id="name" placeholder="Enter name" required/>
+        </div>
+        <div class="form-group mt-3">
+            <label for="email">Email:</label>
+            <input class="form-control" type="email" @bind="email" id="email" placeholder="Enter email" required/>
+        </div>
+        <button type="submit" class="btn btn-primary mt-5">Submit</button>
+    </form>
+
+    @if (Loading)
+    {
+        <div class="alert alert-info m-5">Loading ... </div>
+    }
+    @if (ErrMessage != "")
+    {
+        <div class="alert alert-danger m-5">@ErrMessage</div>
+    }
+    @if(message!= "")
+    {
+        <div class="alert alert-success m-5">@message<br />Check your email for the QR code to the event</div>
+    }
+</div>
+
+
+@code {
+    [Parameter]
+    public int ev { get; set; }
+
+    public Event MyEvent { get; set; } = new();
+
+    public string? name { get; set; } = "";
+
+    public string? email { get; set; }
+
+    public MailAddress? CustomerEmail { get; set; }
+
+    public string ErrMessage { get; set; } = "";
+
+    public string message { get; set; } = "";
+
+    public bool Loading { get; set; } = false;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyEvent = await eventService.GetEvent(ev);
+    }
+
+    public async Task HandleSubmit()
+    {
+        Loading = true;
+        var request = new AddTicketRequest { UserName=name ?? throw new Exception("Name was null somehow"), EventId=ev};
+        var ticket = await ticketService.CreateNewTicket(request);
+
+        try
+        {
+            CustomerEmail = new MailAddress(email);
+            SendEmail(ticket.Id);
+            name = "";
+            email = "";
+            Loading = false;
+        }
+        catch
+        {
+            ErrMessage = "Please check that your email is valid.";
+            Loading = false;
+        }
+    }
+
+    void SendEmail(Guid ticketId)
+    {
+        message = sender.sendEmail(CustomerEmail, ticketId);
+    }
+
+}

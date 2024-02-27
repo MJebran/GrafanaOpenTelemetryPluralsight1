@@ -1,0 +1,38 @@
+﻿@page "/all"
+@rendermode InteractiveServer
+
+@inject IEventService eventService 
+@inject NavigationManager NavManager;
+
+
+<h3>All Events</h3>
+
+<div class="container" style="max-width: 1200px;">
+    <div class="row">
+        @foreach(var eve in eventsList)
+        {
+        
+            <div class="col-md-4 m-4 p-4" style="background-color: #D9D9D9; height: 200px;">
+                <h3 style="font-weight: bolder">@eve.Name</h3>
+                <p><strong>Date: </strong>@eve.Eventdate</p>
+                <button @onclick="() => HandleClick(eve.Id)" class="btn btn-primary">Buy</button>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    public List<Event> eventsList { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        eventsList = await eventService.GetAll();
+        //return base.OnInitializedAsync();
+    }
+
+    public void HandleClick(int ev)
+    {
+        NavManager.NavigateTo($"/confirm/{ev}");
+    }
+
+}

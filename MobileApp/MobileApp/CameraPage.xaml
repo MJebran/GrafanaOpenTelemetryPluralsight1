@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.CameraPage"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             Title="Scan">
+    <Grid RowDefinitions="Auto, *, Auto">
+        <Label 
+            Text="Qr Code Scanning"
+            Margin="10"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <zxing:CameraBarcodeReaderView
+              x:Name="barcodeReader"
+                Grid.Row="1"
+              BarcodesDetected="barcodeReader_BarcodesDetected" />
+
+        <Button Text="Stop Scanning" FontSize="Large" Clicked="EndScan" Margin="10" Grid.Row="2" ></Button> 
+
+    </Grid>
+</ContentPage>

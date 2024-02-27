@@ -1,0 +1,83 @@
+﻿@page "/settings"
+@using Microsoft.Maui.Storage
+@using MobileApp.Inits
+@inject LocalDbInit dbInit;
+@inject IPreferenceSaver ps
+
+<h3>Settings</h3>
+
+<div class="settings">
+    <div class="div">
+        @if (IsOnline)
+        {
+            <div class="text-wrapper-1 mt-4"><strong>Online</strong></div>
+        }
+        else
+        {
+            <div class="text-wrapper-1 mt-4"><strong>Offline</strong></div>
+        }
+        <label class="switch">
+            <input type="checkbox" @bind="IsOnline"/>
+            <span class="slider"></span>
+        </label>
+
+        <div class="text-wrapper-2 mt-5" ><strong>API Address</strong></div>
+        <div class="input-wrapper">
+            <input class="form-control" type="text" @bind="ApiAddress" style="width: 90vw;"/>
+        </div>
+
+        <label class="mt-5">Refresh Rate: </label><input type="number" class="text-wrapper-3" @bind="RefreshRate"><label> sec</label>
+
+        <div class="div-wrapper mt-5" style="text-align: center;">
+            <button @onclick="SaveChanges" class="button-save">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    bool IsOnline { get; set; }
+    public string apiAddress { get; set; }
+    string ApiAddress 
+    { 
+        get  
+        { 
+            return this.apiAddress; 
+        } 
+        set  
+        { 
+            this.apiAddress = value; 
+            changed = true; 
+        } 
+    }
+    public Settings()
+    {
+
+    }
+
+    public Settings(IPreferenceSaver ps)
+    {
+        this.ps = ps;
+    }
+
+    int RefreshRate { get; set; } // Default refresh rate
+    bool changed = false;
+
+    protected override void OnInitialized()
+    {
+        IsOnline = Preferences.Default.Get("isOnline", false);
+        ApiAddress = Preferences.Default.Get("apiAddress", "https://localhost:7283");
+        RefreshRate = Preferences.Default.Get("refreshRate", 60);
+    }
+
+    public async Task SaveChanges()
+    {
+        if(ps.ApiAddress != apiAddress && apiAddress is not null)
+        {
+            await ps.DeleteTables();
+        }
+        ps.SetPreferences(ApiAddress, IsOnline, RefreshRate);
+    }
+}

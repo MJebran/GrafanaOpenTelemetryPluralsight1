@@ -1,0 +1,26 @@
+﻿@page "/all-tickets"
+@using MobileApp.Services
+@using TicketClassLib.Exceptions
+@inject DataSync dataSync;
+<p>@errMessage</p>
+<Tickets />
+
+@code
+{
+    private string errMessage = "";
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await dataSync.DoSync();
+        }
+        catch(AlreadyScannedTicketException e)
+        {
+            errMessage = "A TICKET WAS ALREADY SCANNED";
+        }
+        catch
+        {
+            errMessage = "Please refresh page, something has gone awry";
+        }
+    }
+}

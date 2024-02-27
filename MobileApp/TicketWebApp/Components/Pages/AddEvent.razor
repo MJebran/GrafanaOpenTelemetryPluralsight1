@@ -1,0 +1,43 @@
+﻿@page "/add"
+@rendermode InteractiveServer
+
+@inject IEventService service;
+
+
+<h3>Add Event</h3>
+
+<EditForm Model="@NewEvent" OnSubmit="@Submit" FormName="AddEventForm">
+    <div>
+        <label>
+            Event Name
+            <InputText @bind-Value="@Name"  />
+        </label>
+    </div>
+    <div>
+        <label>
+            Event Date and Time
+            <InputDate Type="InputDateType.DateTimeLocal"
+                       min="@DateTime.Today.ToString("yyyy-MM-dd")" @bind-Value="@NewEvent.Eventdate" />
+        </label>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</EditForm>
+<a href="/">Cancel</a>
+
+@code {
+    [SupplyParameterFromForm]
+    public Event? NewEvent { get; set; }
+
+    public string? Name { get; set; } = "";
+
+    string errMessage { get; set; } = "";
+
+    protected override void OnInitialized() => NewEvent = new() { Eventdate = DateTime.Now };
+
+    private async Task Submit()
+    {
+        await service.AddEvent(Name?? "", NewEvent!.Eventdate.ToUniversalTime()); // Use Name directly here
+    }
+}
