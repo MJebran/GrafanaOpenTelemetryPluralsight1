@@ -10,12 +10,15 @@ services:
     volumes: 
       - ../TestsRUS/20240212.07.58.45.sql:/docker-entrypoint-initdb.d/A_Init.sql
     networks:
-      - databaseTunnel
+      otel:
+      # - databaseTunnel
+      
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
       timeout: 5s
       retries: 5
+    
 
   blazorapp:
     build: ..
@@ -27,7 +30,8 @@ services:
     depends_on:
       - db
     networks:
-      - databaseTunnel
+      otel:
+      # - databaseTunnel
     healthcheck:
       test: weget --tries=1 http://localhost:8059/healthcheck || exit 1
       interval: 3s
@@ -35,6 +39,7 @@ services:
       start_period: 5s
       timeout: 1s
     restart: unless-stopped
+  
 
   blackbox:
     # https://github.com/prometheus/blackbox_exporter/releases
@@ -48,6 +53,8 @@ services:
     command: --config.file=/etc/blackbox/blackbox.yml
     depends_on:
       - blazorapp
+    networks:
+        otel:
 
   prometheus:
       # https://github.com/prometheus/prometheus/releases
@@ -61,6 +68,8 @@ services:
           - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       depends_on:
           - blackbox
+      networks:
+        otel:
 
   grafana:
       # https://github.com/grafana/grafana/releases
@@ -79,7 +88,45 @@ services:
         - "4700:3000"
       depends_on:
         - prometheus 
+        - loki 
+      networks:
+        otel:
+      
+
+  loki:
+    image: grafana/loki:2.8.0
+    container_name: loki
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - 3100:3100
+    networks:
+      otel:
+
+  otel-collector:
+  # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
+    container_name: otel
+    hostname: my-otel-collector
+    image: otel/opentelemetry-collector-contrib:0.75.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ../otel/otel.yml:/etc/otel-collector-config.yaml
+
+    ports:
+      - 8888:8888 #prometheus metrics
+      - 859:8859 #prometheus exporter metrics
+      - 4317:4317 #OTLP gRPC receiver
+      - 9200:55679 #zpages
+      - 13133:13133 #Health Check
+    networks:
+      otel:
 
 networks:
+  otel:
   databaseTunnel:
     driver: bridge
+
+volumes:
+   loki:
+   prometheus:
+   tempo:
+

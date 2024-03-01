@@ -8,10 +8,13 @@ using TicketWebApp.Services;
 
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Logs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddLogging(); // added this for part 2 hw
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +28,25 @@ builder.Services.AddSingleton<ITicketService, ApiTicketService>();
 builder.Services.AddSingleton<IEventService, ApiEventService>();
 builder.Services.AddDbContextFactory<PostgresContext>(optionsBuilder => optionsBuilder.UseNpgsql("Name=TicketsDB"));
 builder.Services.AddScoped<EmailSender>();
+
+// for hw 2
+const string serviceName = "message-api";
+builder.Logging.AddOpenTelemetry(Options =>
+{
+    Options
+        .SetResourceBuilder(
+            ResourceBuilder
+            .CreateDefault()
+            .AddService(serviceName)
+        )
+        .AddOtlpExporter(o =>
+        {
+            o.Endpoint = new Uri("http://otel-collector:4317/");
+        })
+        .AddConsoleExporter();
+            
+});
+// end 
 
 builder.Services.AddHealthChecks();
 
@@ -40,10 +62,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V1");
-});
+app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V1"); });
 
 app.UseHttpsRedirection();
 
