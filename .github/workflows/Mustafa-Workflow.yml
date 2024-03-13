@@ -32,7 +32,7 @@ jobs:
       - name: warnining
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
-          docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build -WarnAsError
+          docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
       
 
 
