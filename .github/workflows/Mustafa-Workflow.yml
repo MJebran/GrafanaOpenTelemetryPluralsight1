@@ -3,7 +3,6 @@ on: [push]
 jobs:
   MJDeplyPiP: 
     runs-on: self-hosted
-    container: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - name: "alex-office2"
         run: |
