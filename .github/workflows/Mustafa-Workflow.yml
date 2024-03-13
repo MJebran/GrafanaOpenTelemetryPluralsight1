@@ -12,11 +12,6 @@ jobs:
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
           
-      # - name: Restore MAUI Workload
-      #   run: |
-      #     cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MobileApp
-      #     dotnet workload install maui-tizen maui-android --skip-manifest-update
-
       - name: Integration-Tests
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/TestsRUS/
@@ -25,7 +20,6 @@ jobs:
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/UnitTestsRUs/
           dotnet test
-
 
 
 
