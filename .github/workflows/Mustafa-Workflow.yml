@@ -1,0 +1,28 @@
+name: Mustafa Deploying For Alex
+on: [push]
+jobs:
+  MJDeplyPiP: 
+    runs-on: mustafa
+    steps:
+      - name: "alex-office2"
+        run: |
+            rm -rf ./ticketsrus-dusty-mustafa-ethan
+            git clone "https://${{secrets.CICD}}@/github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
+            # cd to gitub   
+            cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/MustafasDockerFile
+            docker compose up --build -d
+
+
+      #       # docker compose down -v 
+      # - uses: actions/checkout@master
+            
+      # - name: Check Compose Outcome
+      #   if: ${{ success() }}
+      #   run: |
+      #       echo "Docker Compose succeeded."
+            
+      # - name: letMicrosoft know Teams
+      #   uses: skitionek/notify-microsoft-teams@master
+      #   if: always()
+      #   with:
+      #       webhook_url: ${{ secrets.CICD }}
