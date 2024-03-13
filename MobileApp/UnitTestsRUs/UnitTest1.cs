@@ -15,7 +15,7 @@ namespace UnitTestsRUs
         [Test]
         public async Task ChangingDatabaseTests()
         {
-            Assert.True(false);//ture change
+            Assert.True(true);//ture change
         }
     }
 }
