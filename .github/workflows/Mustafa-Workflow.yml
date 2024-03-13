@@ -35,6 +35,7 @@ jobs:
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
       
       - uses: actions/checkout@v2
+      
       - name: "Notifies Teams Channel"
         uses: dchourasia/ms-teams-notification@1.0
         if: always()
