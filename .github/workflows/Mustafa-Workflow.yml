@@ -23,6 +23,11 @@ jobs:
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/UnitTestsRUs/
           # docker run --rm  -v "$(pwd):/app" -w /app/MobileApp/UnitTestsRUs -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
           dotnet test
+
+      - name: linting
+        run: |
+          cd ./GrafanaOpenTelemetryPluralsight1/
+          docker run --rm -v "$(pwd):/app" -w /app -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet format --verify-no-changes --severity warn
       
       
 
