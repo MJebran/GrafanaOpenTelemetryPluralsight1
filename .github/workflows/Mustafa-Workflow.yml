@@ -6,7 +6,7 @@ jobs:
     steps:
       - name: "alex-office2"
         run: |
-            rm -rf ./GrafanaOpenTelemetryPluralsight1
+            # rm -rf ./GrafanaOpenTelemetryPluralsight1
             git clone "https://${{secrets.CICD}}@/github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
             # cd to gitub   
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
@@ -20,7 +20,8 @@ jobs:
       # - name: Unit-Tests
       #   run: |
       #     cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
-      #     dotnet test
+      
+      
 
 
       #       # docker compose down -v 
