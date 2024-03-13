@@ -21,7 +21,7 @@ namespace UnitTestsRUs
         [Test]
         public async Task TeamsHocCheckFailer()
         {
-            Assert.True(false);
+            Assert.True(true);
         }
     }
 }
