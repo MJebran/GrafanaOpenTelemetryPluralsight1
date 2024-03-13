@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApp", "MobileApp\MobileApp.csproj", "{582D1AA3-E0EF-42BF-9E7E-B49137E14CDE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketClassLib", "TicketClassLib\TicketClassLib.csproj", "{71EDBF95-BEE8-4CBD-BC4A-BA1AEB63B483}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketWebApp", "TicketWebApp\TicketWebApp.csproj", "{CFE86261-6760-4475-8738-7BFC70CDE4D7}"

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Testcontainers.PostgreSql;
 using TicketWebApp.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TestsRUS;
 
