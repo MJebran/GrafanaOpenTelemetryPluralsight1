@@ -104,7 +104,7 @@ services:
 
   otel-collector:
   # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
-    container_name: otel
+    container_name: otell   # check this if error occurs
     hostname: my-otel-collector
     image: otel/opentelemetry-collector-contrib:0.75.0
     command: ["--config=/etc/otel-collector-config.yaml"]
