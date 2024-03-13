@@ -11,31 +11,27 @@ jobs:
             # cd to gitub   
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
-
       - name: Integration-Tests
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/TestsRUS/
           # docker run --rm  -v "$(pwd):/app" -w /app/MobileApp/TestsRUS -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
           dotnet test
-          
       - name: Unit-Tests
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/UnitTestsRUs/
           # docker run --rm  -v "$(pwd):/app" -w /app/MobileApp/UnitTestsRUs -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
           dotnet test
-
       - name: linting
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
           docker run --rm -v "$(pwd):/app" -w /app -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet format --verify-no-changes --severity warn
-      
       - name: warnining
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
       
       - uses: actions/checkout@v2
-      
+
       - name: "Notifies Teams Channel"
         uses: dchourasia/ms-teams-notification@1.0
         if: always()
