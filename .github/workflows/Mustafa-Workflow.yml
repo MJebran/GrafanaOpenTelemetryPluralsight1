@@ -12,6 +12,11 @@ jobs:
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
           
+      - name: Restore MAUI Workload
+        run: |
+          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
+          dotnet workload restore
+
       - name: Integration-Tests
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/TestsRUS/
