@@ -1,4 +1,4 @@
-name: Mustafa Deploying For Alex
+name: Mustafa Deploying For CI-CD
 on: [push]
 jobs:
   MJDeplyPiP: 
