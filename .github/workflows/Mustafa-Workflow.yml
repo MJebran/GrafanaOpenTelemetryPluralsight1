@@ -12,11 +12,11 @@ jobs:
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
 
-      - name: Integration Tests
+      - name: Integration-Tests
         run: |
           cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/TestsRUS/
           dotnet test
-      - name: Unit Tests
+      - name: Unit-Tests
         run: |
           cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
           dotnet test
