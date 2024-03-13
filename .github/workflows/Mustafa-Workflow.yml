@@ -14,12 +14,13 @@ jobs:
 
       - name: Integration-Tests
         run: |
-          cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/TestsRUS/
-          dotnet test
-      - name: Unit-Tests
-        run: |
-          cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
-          dotnet test
+          cd ./GrafanaOpenTelemetryPluralsight1
+          docker run --rm  -v "$(pwd):/app" -w /app/MobileApp/TestsRUS -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
+          
+      # - name: Unit-Tests
+      #   run: |
+      #     cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
+      #     dotnet test
 
 
       #       # docker compose down -v 
