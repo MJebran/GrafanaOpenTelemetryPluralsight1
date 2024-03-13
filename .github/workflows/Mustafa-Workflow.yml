@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Notifies Teams Channel"
-        uses: dchourasia/ms-teams-notification@1.0
+        uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
         if: always()
         with:
             github-token: ${{ github.token }}
