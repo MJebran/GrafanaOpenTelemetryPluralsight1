@@ -49,14 +49,14 @@ public class ScanningTests : IClassFixture<TicketsApiFactory>
         };
         var response = await client.PostAsJsonAsync($"Ticket/newTicket", newTicketRequest);
         var ticket = await response.Content.ReadFromJsonAsync<Ticket>();
-        var ticketId = ticket.Id.ToString(); 
+        var ticketId = ticket.Id.ToString();
 
         //Act
-        var scanResponse = await client.PatchAsync($"ticket/scanticket/{ticketId}/{1}", null); 
-        var scanTicket = await scanResponse.Content.ReadFromJsonAsync<TicketStatus>(); 
+        var scanResponse = await client.PatchAsync($"ticket/scanticket/{ticketId}/{1}", null);
+        var scanTicket = await scanResponse.Content.ReadFromJsonAsync<TicketStatus>();
 
         //Assert
-        scanTicket.Should().Be(TicketStatus.Success); 
+        scanTicket.Should().Be(TicketStatus.Success);
     }
 
     [Fact]

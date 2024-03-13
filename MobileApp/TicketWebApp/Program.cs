@@ -44,7 +44,7 @@ builder.Logging.AddOpenTelemetry(Options =>
             o.Endpoint = new Uri("http://otel-collector:4317/");
         })
         .AddConsoleExporter();
-            
+
 });
 // end 
 
@@ -58,7 +58,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    
+
 }
 
 app.UseSwagger();
@@ -85,4 +85,4 @@ app.MapRazorComponents<App>()
 app.MapControllers();
 app.Run();
 
-public partial class Program { } 
+public partial class Program { }

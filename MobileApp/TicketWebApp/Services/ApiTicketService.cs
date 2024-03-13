@@ -100,7 +100,7 @@ public class ApiTicketService(IDbContextFactory<PostgresContext> dbFactory) : IT
         context.Update(tuc);
         try
         {
-        await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
 
         }
         catch

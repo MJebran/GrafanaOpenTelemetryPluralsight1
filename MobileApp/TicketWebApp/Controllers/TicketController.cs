@@ -27,9 +27,9 @@ public class TicketController(ITicketService ticketService) : ControllerBase
     }
 
     [HttpPost("newTicket")]
-    public async Task<Ticket> CreateNewTicket( [FromBody] AddTicketRequest ticketRequest)
+    public async Task<Ticket> CreateNewTicket([FromBody] AddTicketRequest ticketRequest)
     {
-        var newTicket = await ticketService.CreateNewTicket(ticketRequest); 
+        var newTicket = await ticketService.CreateNewTicket(ticketRequest);
         return newTicket;
     }
 

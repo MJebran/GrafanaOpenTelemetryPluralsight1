@@ -9,9 +9,9 @@ namespace TicketClassLib.Services;
 public interface IPreferenceSaver
 {
 
-    public string ApiAddress { get;  }
-    public bool IsOnline { get;  }
-    public int RefereshRate { get;  }
+    public string ApiAddress { get; }
+    public bool IsOnline { get; }
+    public int RefereshRate { get; }
 
     public void SetPreferences(string apiAddress, bool isOnline, int refresh);
     public Task DeleteTables();

@@ -11,7 +11,7 @@ class EmailSender
 
     public EmailSender(IConfiguration config)
     {
-        secretSender = config["DustySecret"]?? throw new Exception("Missing dusty email config");
+        secretSender = config["DustySecret"] ?? throw new Exception("Missing dusty email config");
         fromEmail = config["DustysEmail"] ?? throw new Exception("Missing dusty email password config");
     }
 
@@ -20,7 +20,7 @@ class EmailSender
     {
         try
         {
-            var from =  new MailAddress(fromEmail, "TicketsRUs");
+            var from = new MailAddress(fromEmail, "TicketsRUs");
             var to = ReceiverEmail;
             var message = new MailMessage(from, to);
 
@@ -52,7 +52,7 @@ class EmailSender
             {
                 client.Port = 587;
                 client.EnableSsl = true;
-                
+
 
                 // Note: only needed if the SMTP server requires authentication
                 client.Credentials = new NetworkCredential(fromEmail, secretSender);
