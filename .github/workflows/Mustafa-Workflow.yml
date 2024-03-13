@@ -9,7 +9,7 @@ jobs:
             rm -rf ./ticketsrus-dusty-mustafa-ethan
             git clone "https://${{secrets.CICD}}@/github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
             # cd to gitub   
-            cd ./ticketsrus-dusty-mustafa-ethan/MobileApp/MustafasDockerFile
+            cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
 
 
