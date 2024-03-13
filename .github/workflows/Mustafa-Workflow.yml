@@ -2,7 +2,7 @@ name: Mustafa Deploying For CI-CD
 on: [push]
 jobs:
   MJDeplyPiP: 
-    runs-on: mustafa
+    runs-on: alex-office2
     steps:
       - name: "alex-office2"
         run: |
