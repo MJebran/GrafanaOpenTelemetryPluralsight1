@@ -17,9 +17,10 @@ jobs:
           cd ./GrafanaOpenTelemetryPluralsight1
           docker run --rm  -v "$(pwd):/app" -w /app/MobileApp/TestsRUS -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
           
-      # - name: Unit-Tests
-      #   run: |
-      #     cd ./ticketsrus-dust-mustafa-ethan/MobileApp/UnitTestsRUs/
+      - name: Unit-Tests
+        run: |
+          cd ./GrafanaOpenTelemetryPluralsight1
+          docker run --rm  -v "$(pwd):/app" -w /app/MobileApp/UnitTestsRUs -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
       
       
 
