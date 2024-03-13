@@ -11,11 +11,20 @@ jobs:
             # cd to gitub   
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
-
-      - name: "Integration-Testing"
+          
+      - name: Integration-Tests
         run: |
-            cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/TestRUS
-            dotnet test
+          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/TestsRUS/
+          dotnet test
+      - name: Unit-Tests
+        run: |
+          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/UnitTestsRUs/
+          dotnet test
+
+
+
+
+
       #       # docker compose down -v 
       # - uses: actions/checkout@master
             
