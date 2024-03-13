@@ -12,7 +12,10 @@ jobs:
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
 
-
+      - name: "Integration-Testing"
+        run: |
+            cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/TestRUS
+            dotnet test
       #       # docker compose down -v 
       # - uses: actions/checkout@master
             
