@@ -8,3 +8,27 @@ Buy Tickets and scan your ticket at the gate.<br />
 <a href="/all"<button class="btn btn-primary m-5">Buy Tickets Today!</button></a>
 
 
+<button @onclick="trace" >Trace</button>
+<button @onclick="trace">Trace2</button>
+@code{
+    private void trace()
+    {
+        using var myActivity = DiagnosticsConfiguration.MyActivitySource1.StartActivity("Button pressed");
+        Meters.NumRequestsCounter.Add(1);
+    }   
+
+    private void trace2()
+    {
+        using var myActivity = DiagnosticsConfiguration.MyActivitySource2.StartActivity("Second Button");
+    }
+
+    protected override void OnInitialized()
+    {
+        using var myActivity = DiagnosticsConfiguration.MyActivitySource2.StartActivity("Initialized");
+        Meters.NumRequestsCounter.Add(1);
+    } 
+
+
+}
+
+

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Logs;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,14 +41,41 @@ builder.Logging.AddOpenTelemetry(Options =>
             .CreateDefault()
             .AddService(serviceName)
         )
+        .AddConsoleExporter()
         .AddOtlpExporter(o =>
         {
             o.Endpoint = new Uri("http://otel-collector:4317/");
-        })
-        .AddConsoleExporter();
+        });
 
 });
 // end 
+
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService(serviceName))
+    .WithTracing(tracing => tracing
+    .AddAspNetCoreInstrumentation()
+    .AddSource(DiagnosticsConfiguration.SourceName1)
+    .AddSource(DiagnosticsConfiguration.SourceName2)
+    .AddConsoleExporter()
+    .AddOtlpExporter(o =>
+    {
+        o.Endpoint = new Uri("http://otel-collector:4317/");
+    })
+    )
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddMeter(Meters.otleMeter.Name)
+        .AddConsoleExporter()
+        .AddOtlpExporter(o =>
+        {
+            o.Endpoint = new Uri("http://otel-collector:4317/");
+        }
+        )
+    );
+
+
+
 
 builder.Services.AddHealthChecks();
 
@@ -83,6 +112,7 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 app.MapControllers();
+//System.TypeLoadException: 'Could not load type 'System.ServiceProviderExtensions' from assembly 'OpenTelemetry, Version = 1.0.0.0, Culture = neutral, PublicKeyToken = 7bd6737fe5b6
 app.Run();
 
 public partial class Program { }

@@ -6,15 +6,11 @@ receivers:
 
 exporters:
   prometheus:
-    endpoint: otel:8889
-  otlp:
-    endpoint: tempo:4007
-    tls:
-      insecure: true
+    endpoint: "0.0.0.0:1234"
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
   loki:
     endpoint: http://loki:3100/loki/api/v1/push
-    tls:
-      insecure: true
 
 extensions:
   health_check:
@@ -34,7 +30,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp]
+      exporters: [zipkin]
     logs:
       receivers: [otlp]
       processors: [batch]
