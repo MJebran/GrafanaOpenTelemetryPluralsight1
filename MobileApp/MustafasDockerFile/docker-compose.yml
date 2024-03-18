@@ -101,7 +101,7 @@ services:
 #     container_name: loki # chekc this too
 #     command: -config.file=/etc/loki/local-config.yaml
 #     ports:
-#       - 3100:3100
+#       - 8100:8100
 #     networks:
 #       otel:
 
