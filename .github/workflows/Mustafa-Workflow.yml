@@ -38,7 +38,7 @@ jobs:
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
           docker rm -f Mustafa-prometheus
-          docker run --rm -d --name Mustafa-prometheus -p 4354:9090 -v "$(pwd)/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml" --user $(id -u):$(id -g) prom/prometheus:v2.43.0
+          docker run -d --name Mustafa-prometheus -p 4354:9090 -v "$(pwd)/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml" --user $(id -u):$(id -g) prom/prometheus:v2.43.0
       - name: Mustafa-grafana
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
