@@ -75,7 +75,3 @@ jobs:
             github-token: ${{ github.token }}
             webhook-uri: ${{ secrets.MUSTAFAHOC }}
 
-# I changed loki again
-# zipkin
-# otel
-# ports
