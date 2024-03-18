@@ -11,7 +11,9 @@ jobs:
             # git clone "https://${{secrets.CICD}}@github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
             # cd to gitub   
             cd ./MobileApp/MustafasDockerFile
+            docker compose down
             docker compose up --build -d
+
       - name: Integration-Tests
         run: |
           cd ./MobileApp/TestsRUS/
