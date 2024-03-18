@@ -44,7 +44,7 @@ builder.Logging.AddOpenTelemetry(Options =>
         .AddConsoleExporter()
         .AddOtlpExporter(o =>
         {
-            o.Endpoint = new Uri("http://otel-collector:4517/");
+            o.Endpoint = new Uri("http://otel-collector:4317/");
         });
 
 });
@@ -60,7 +60,7 @@ builder.Services.AddOpenTelemetry()
     .AddConsoleExporter()
     .AddOtlpExporter(o =>
     {
-        o.Endpoint = new Uri("http://otel-collector:4517/");
+        o.Endpoint = new Uri("http://otel-collector:4317/");
     })
     )
     .WithMetrics(metrics => metrics
@@ -69,7 +69,7 @@ builder.Services.AddOpenTelemetry()
         .AddConsoleExporter()
         .AddOtlpExporter(o =>
         {
-            o.Endpoint = new Uri("http://otel-collector:4517/");
+            o.Endpoint = new Uri("http://otel-collector:4317/");
         }
         )
     );

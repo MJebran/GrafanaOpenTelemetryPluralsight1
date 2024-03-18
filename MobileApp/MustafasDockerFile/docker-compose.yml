@@ -123,7 +123,7 @@ services:
     ports:
       - 8978:8978 #prometheus metrics
       - 859:8859 #prometheus exporter metrics
-      - 4517:4517 #OTLP gRPC receiver
+      - 4517:4317 #OTLP gRPC receiver
       - 9230:55679 #zpages
       - 13233:13233 #Health Check
     networks:
