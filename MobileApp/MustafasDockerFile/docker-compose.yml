@@ -121,7 +121,7 @@ services:
       - ../otel/otel.yml:/etc/otel-collector-config.yaml
 
     ports:
-      - 8988:8988 #prometheus metrics
+      - 8978:8978 #prometheus metrics
       - 859:8859 #prometheus exporter metrics
       - 4517:4517 #OTLP gRPC receiver
       - 9230:55679 #zpages
