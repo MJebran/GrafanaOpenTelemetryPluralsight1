@@ -43,7 +43,7 @@ services:
   blackbox:
     # https://github.com/prometheus/blackbox_exporter/releases
     image: prom/blackbox-exporter:v0.23.0
-    container_name: blackbox #check this if it was not running
+    container_name: Mustafa-blackbox #check this if it was not running
     restart: unless-stopped
     ports:
         - "4355:9115"
@@ -58,7 +58,7 @@ services:
   prometheus:
       # https://github.com/prometheus/prometheus/releases
       image: prom/prometheus:v2.43.0
-      container_name: prometheus # check this if it was not running
+      container_name: Mustafa-prometheus # check this if it was not running
       hostname: prometheus
       restart: unless-stopped
       ports:
@@ -73,7 +73,7 @@ services:
   grafana:
       # https://github.com/grafana/grafana/releases
       image: grafana/grafana:9.4.7
-      container_name: grafana # check this if it was not running
+      container_name: Mustafa-grafana # check this if it was not running
       environment:
         - GF_AUTH_ANONYMOUS_ENABLED=true
         - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -94,7 +94,7 @@ services:
 
   loki:
     image: grafana/loki:2.8.0
-    container_name: loki # chekc this too
+    container_name: Mustafa-loki # chekc this too
     command: -config.file=/etc/loki/local-config.yaml
     ports:
       - 8100:8100
@@ -103,7 +103,7 @@ services:
 
   zipkin:
     image: openzipkin/zipkin
-    container_name: zipkin
+    container_name: Mustafa-zipkin
     restart: always
     ports:
       - 9521:9411   # you can change the first one
@@ -113,7 +113,7 @@ services:
 
   otel-collector:
   # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
-    container_name: otel  # check this if error occurs
+    container_name: Mustafa-otel  # check this if error occurs
     hostname: my-otel-collector
     image: otel/opentelemetry-collector-contrib:0.75.0
     command: ["--config=/etc/otel-collector-config.yaml"]
