@@ -51,8 +51,8 @@ jobs:
           docker run --rm -d --name Mustafa-loki -p 8100:8100 --user $(id -u):$(id -g) grafana/loki:2.8.0 --config.file=/etc/loki/local-config.yaml
       - name: Mustafa-zipkin
         run: |
-          docker run --rm -d --name Mustafa-zipkin -p 9521:9411 --user $(id -u):$(id -g) openzipkin/zipkin
           docker rm -f Mustafa-zipkin
+          docker run --rm -d --name Mustafa-zipkin -p 9521:9411 --user $(id -u):$(id -g) openzipkin/zipkin
       - name: Mustafa-otel-collector
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/ 
