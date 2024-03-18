@@ -69,3 +69,4 @@ jobs:
       #       webhook-uri: ${{ secrets.MUSTAFAHOC }}
 
 # I changed loki again
+# zipkin
