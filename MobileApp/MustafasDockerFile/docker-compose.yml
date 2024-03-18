@@ -40,8 +40,8 @@ services:
       start_period: 5s
       timeout: 1s
     restart: unless-stopped
-    networks:
-      - otel
+    # networks:
+    #   - otel
   
 
 #   blackbox:
