@@ -29,44 +29,48 @@ jobs:
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
-      - name: Mustafa-blackbox
+      - name: deploying
         run: |
-          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
-          docker rm -f Mustafa-blackbox
-          docker run --rm -d --name Mustafa-blackbox -p 4355:9115 -v "$(pwd)/blackbox/blackbox.yml:/etc/blackbox/blackbox.yml" --user $(id -u):$(id -g) prom/blackbox-exporter:v0.23.0 --config.file=/etc/blackbox/blackbox.yml
-      - name: Mustafa-prometheus
-        run: |
-          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
-          docker rm -f Mustafa-prometheus
-          docker run -d --name Mustafa-prometheus -p 4354:9090 -v "$(pwd)/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml" prom/prometheus:v2.43.0
-      - name: Mustafa-grafana
-        run: |
-          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
-          docker rm -f Mustafa-grafana
-          docker run --rm -d --name Mustafa-grafana -p 4700:3000 -v "$(pwd)/grafana/provisioning:/etc/grafana/provisioning" --user $(id -u):$(id -g) grafana/grafana:9.4.7
-      - name: Mustafa-loki
-        run: |
-          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
-          docker rm -f Mustafa-loki
-          docker run --rm -d --name Mustafa-loki -p 8100:8100 --user $(id -u):$(id -g) grafana/loki:2.8.0 --config.file=/etc/loki/local-config.yaml
-      - name: Mustafa-zipkin
-        run: |
-          docker rm -f Mustafa-zipkin
-          docker run --rm -d --name Mustafa-zipkin -p 9521:9411 --user $(id -u):$(id -g) openzipkin/zipkin
-      - name: Mustafa-otel-collector
-        run: |
-          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/ 
-          # docker rm -f Mustafa-otel-collector
-          docker run --rm -d --name Mustafa-otel-collector -p 8988:8988 -p 859:8859 -p 4517:4517 -p 9230:55679 -p 13233:13233 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" --user $(id -u):$(id -g) otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
+          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
+          docker compose up --build -d
+      # - name: Mustafa-blackbox
+      #   run: |
+      #     cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
+      #     docker rm -f Mustafa-blackbox
+      #     docker run --rm -d --name Mustafa-blackbox -p 4355:9115 -v "$(pwd)/blackbox/blackbox.yml:/etc/blackbox/blackbox.yml" --user $(id -u):$(id -g) prom/blackbox-exporter:v0.23.0 --config.file=/etc/blackbox/blackbox.yml
+      # - name: Mustafa-prometheus
+      #   run: |
+      #     cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
+      #     docker rm -f Mustafa-prometheus
+      #     docker run -d --name Mustafa-prometheus -p 4354:9090 -v "$(pwd)/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml" prom/prometheus:v2.43.0
+      # - name: Mustafa-grafana
+      #   run: |
+      #     cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
+      #     docker rm -f Mustafa-grafana
+      #     docker run --rm -d --name Mustafa-grafana -p 4700:3000 -v "$(pwd)/grafana/provisioning:/etc/grafana/provisioning" --user $(id -u):$(id -g) grafana/grafana:9.4.7
+      # - name: Mustafa-loki
+      #   run: |
+      #     cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
+      #     docker rm -f Mustafa-loki
+      #     docker run --rm -d --name Mustafa-loki -p 8100:8100 --user $(id -u):$(id -g) grafana/loki:2.8.0 --config.file=/etc/loki/local-config.yaml
+      # - name: Mustafa-zipkin
+      #   run: |
+      #     docker rm -f Mustafa-zipkin
+      #     docker run --rm -d --name Mustafa-zipkin -p 9521:9411 --user $(id -u):$(id -g) openzipkin/zipkin
+      # - name: Mustafa-otel-collector
+      #   run: |
+      #     cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/ 
+      #     # docker rm -f Mustafa-otel-collector
+      #     docker run --rm -d --name Mustafa-otel-collector -p 8988:8988 -p 859:8859 -p 4517:4517 -p 9230:55679 -p 13233:13233 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" --user $(id -u):$(id -g) otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
 
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      # - name: "Notifies Teams Channel"
-      #   uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
-      #   if: always()
-      #   with:
-      #       github-token: ${{ github.token }}
-      #       webhook-uri: ${{ secrets.MUSTAFAHOC }}
+      - name: "Notifies Teams Channel"
+        uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
+        if: always()
+        with:
+            github-token: ${{ github.token }}
+            webhook-uri: ${{ secrets.MUSTAFAHOC }}
 
 # I changed loki again
 # zipkin
