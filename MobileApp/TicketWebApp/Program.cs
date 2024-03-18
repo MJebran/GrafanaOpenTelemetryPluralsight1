@@ -53,15 +53,16 @@ builder.Logging.AddOpenTelemetry(Options =>
 
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(serviceName))
-    .WithTracing(tracing => tracing
-    .AddAspNetCoreInstrumentation()
-    .AddSource(DiagnosticsConfiguration.SourceName1)
-    .AddSource(DiagnosticsConfiguration.SourceName2)
-    .AddConsoleExporter()
-    .AddOtlpExporter(o =>
-    {
-        o.Endpoint = new Uri("http://otel-collector:4517/");
-    })
+    .WithTracing(tracing => 
+         tracing
+        .AddAspNetCoreInstrumentation()
+        .AddSource(DiagnosticsConfiguration.SourceName1)
+        .AddSource(DiagnosticsConfiguration.SourceName2)
+        .AddConsoleExporter()
+        .AddOtlpExporter(o =>
+        {
+            o.Endpoint = new Uri("http://otel-collector:4517/");
+        })
     )
     .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
