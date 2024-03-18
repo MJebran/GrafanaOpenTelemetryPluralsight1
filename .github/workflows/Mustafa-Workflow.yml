@@ -4,10 +4,11 @@ jobs:
   MJDeplyPiP: 
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - name: "alex-office2"
         run: |
-            rm -rf ./GrafanaOpenTelemetryPluralsight1
-            git clone "https://${{secrets.CICD}}@github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
+            # rm -rf ./GrafanaOpenTelemetryPluralsight1
+            # git clone "https://${{secrets.CICD}}@github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
             # cd to gitub   
             cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/MustafasDockerFile
             docker compose up --build -d
@@ -63,7 +64,7 @@ jobs:
       #     # docker rm -f Mustafa-otel-collector
       #     docker run --rm -d --name Mustafa-otel-collector -p 8988:8988 -p 859:8859 -p 4517:4517 -p 9230:55679 -p 13233:13233 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" --user $(id -u):$(id -g) otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
 
-      - uses: actions/checkout@v2
+      
 
       - name: "Notifies Teams Channel"
         uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
