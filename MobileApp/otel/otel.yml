@@ -10,7 +10,7 @@ exporters:
   zipkin:
     endpoint: "http://Mustafa-zipkin:9411/api/v2/spans"
   loki:
-    endpoint: http://Mustafa-loki:8100/loki/api/v1/push
+    endpoint: http://Mustafa-loki:3100/loki/api/v1/push
 
 extensions:
   health_check:
