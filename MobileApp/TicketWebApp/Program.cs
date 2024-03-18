@@ -65,7 +65,7 @@ builder.Services.AddOpenTelemetry()
     )
     .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
-        .AddMeter(Meters.otleMeter.Name)
+        .AddMeter("OpenTeleApi.Api")
         .AddConsoleExporter()
         .AddOtlpExporter(o =>
         {
