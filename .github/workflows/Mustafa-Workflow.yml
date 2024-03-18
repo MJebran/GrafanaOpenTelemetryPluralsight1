@@ -53,11 +53,11 @@ jobs:
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/ 
           docker run --rm -d --nameMustafa-otel-collector -p 8888:8888 -p 859:8859 -p 4317:4317 -p 9200:55679 -p 13133:13133 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
 
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
 
-      - name: "Notifies Teams Channel"
-        uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
-        if: always()
-        with:
-            github-token: ${{ github.token }}
-            webhook-uri: ${{ secrets.MUSTAFAHOC }}
+      # - name: "Notifies Teams Channel"
+      #   uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
+      #   if: always()
+      #   with:
+      #       github-token: ${{ github.token }}
+      #       webhook-uri: ${{ secrets.MUSTAFAHOC }}
