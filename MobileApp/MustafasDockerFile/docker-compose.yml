@@ -9,8 +9,8 @@ services:
       POSTGRES_USER: postgres
     volumes: 
       - ../TestsRUS/20240212.07.58.45.sql:/docker-entrypoint-initdb.d/A_Init.sql
-    networks:
-      otel:
+    # networks:
+    #   otel:
       # - databaseTunnel
       
     # healthcheck:
