@@ -44,6 +44,11 @@ jobs:
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
           docker rm -f Mustafa-grafana
           docker run --rm -d --name Mustafa-grafana -p 4700:3000 -v "$(pwd)/grafana/provisioning:/etc/grafana/provisioning" --user $(id -u):$(id -g) grafana/grafana:9.4.7
+      - name: Mustafa-loki
+        run: |
+          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
+          docker rm -f Mustafa-loki
+          docker run --rm -d --name Mustafa-loki -p 3100:3100 --user $(id -u):$(id -g) grafana/loki:2.8.0 --config.file=/etc/loki/local-config.yaml
       - name: Mustafa-zipkin
         run: |
           docker run --rm -d --name Mustafa-zipkin -p 9521:9411 --user $(id -u):$(id -g) openzipkin/zipkin
@@ -53,11 +58,6 @@ jobs:
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/ 
           docker rm -f Mustafa-otel-collector
           docker run --rm -d --nameMustafa-otel-collector -p 8888:8888 -p 859:8859 -p 4317:4317 -p 9200:55679 -p 13133:13133 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" --user $(id -u):$(id -g) otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
-      - name: Mustafa-loki
-        run: |
-          cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/
-          docker rm -f Mustafa-loki
-          docker run --rm -d --name Mustafa-loki -p 3100:3100 --user $(id -u):$(id -g) grafana/loki:2.8.0 --config.file=/etc/loki/local-config.yaml
 
       # - uses: actions/checkout@v2
 
