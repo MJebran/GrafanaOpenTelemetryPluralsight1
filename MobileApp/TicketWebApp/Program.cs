@@ -54,7 +54,7 @@ builder.Logging.AddOpenTelemetry(Options =>
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(serviceName))
     .WithTracing(tracing => 
-         tracing
+        tracing
         .AddAspNetCoreInstrumentation()
         .AddSource(DiagnosticsConfiguration.SourceName1)
         .AddSource(DiagnosticsConfiguration.SourceName2)
