@@ -21,6 +21,7 @@ services:
     
 
   blazorapp:
+    container_name: Mustafa-blazorapp
     build: ..
     ports:
       - 8059:8080
