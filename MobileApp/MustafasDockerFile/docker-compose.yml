@@ -128,7 +128,7 @@ services:
 #       - 8888:8888 #prometheus metrics
 #       - 859:8859 #prometheus exporter metrics
 #       - 4317:4317 #OTLP gRPC receiver
-#       - 9200:55679 #zpages
+#       - 9230:55679 #zpages
 #       - 13133:13133 #Health Check
 #     networks:
 #       otel:
