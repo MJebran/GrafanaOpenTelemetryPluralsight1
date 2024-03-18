@@ -57,7 +57,7 @@ jobs:
         run: |
           cd ./GrafanaOpenTelemetryPluralsight1/MobileApp/ 
           # docker rm -f Mustafa-otel-collector
-          docker run --rm -d --name Mustafa-otel-collector -p 8988:8988 -p 859:8859 -p 4317:4317 -p 9230:55679 -p 13233:13233 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" --user $(id -u):$(id -g) otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
+          docker run --rm -d --name Mustafa-otel-collector -p 8988:8988 -p 859:8859 -p 4517:4517 -p 9230:55679 -p 13233:13233 -v "$(pwd)/otel/otel.yml:/etc/otel-collector-config.yaml" --user $(id -u):$(id -g) otel/opentelemetry-collector-contrib:0.75.0 --config=/etc/otel-collector-config.yaml
 
       # - uses: actions/checkout@v2
 
