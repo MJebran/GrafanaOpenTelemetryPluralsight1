@@ -5,14 +5,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
-      - name: "alex-office2"
-        run: |
-            # rm -rf ./GrafanaOpenTelemetryPluralsight1
-            # git clone "https://${{secrets.CICD}}@github.com/MJebran/GrafanaOpenTelemetryPluralsight1"
-            # cd to gitub   
-            cd ./MobileApp/MustafasDockerFile
-            docker compose down
-            docker compose up --build -d
 
       - name: Integration-Tests
         run: |
@@ -35,6 +27,7 @@ jobs:
       - name: deploying
         run: |
           cd ./MobileApp/MustafasDockerFile
+          docker compose down
           docker compose up --build -d
       # - name: Mustafa-blackbox
       #   run: |
