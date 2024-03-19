@@ -67,7 +67,7 @@ builder.Services.AddOpenTelemetry()
         .AddAspNetCoreInstrumentation()
         .AddMeter("OpenTeleApi.Api")
         .AddConsoleExporter()
-        .AddPrometheusHttpListener()
+        .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {
             o.Endpoint = new Uri("http://otel-collector:4317/");
