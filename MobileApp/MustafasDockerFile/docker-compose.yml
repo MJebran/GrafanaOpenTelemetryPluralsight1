@@ -110,6 +110,17 @@ services:
     networks:
       otel:
   
+  proxy:
+    image: nginx
+    container_name: Mustafa_nginx
+    ports:
+      - 5469:80
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      otel:
+    
+
 
   otel-collector:
   # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
@@ -129,10 +140,16 @@ services:
     networks:
       otel:
 
+  
+
 networks:
   otel:
   # databaseTunnel:
   #   driver: bridge
+
+
+
+
 
 volumes:
    loki:
