@@ -91,6 +91,8 @@ if (!app.Environment.IsDevelopment())
 
 }
 
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
+
 app.UseSwagger();
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V1"); });
 
