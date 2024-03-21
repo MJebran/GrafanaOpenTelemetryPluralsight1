@@ -30,6 +30,7 @@ builder.Services.AddSingleton<ITicketService, ApiTicketService>();
 builder.Services.AddSingleton<IEventService, ApiEventService>();
 builder.Services.AddDbContextFactory<PostgresContext>(optionsBuilder => optionsBuilder.UseNpgsql("Name=TicketsDB"));
 builder.Services.AddScoped<EmailSender>();
+builder.Services.AddSingleton<MustafaHandler>();// added this for the handler class
 
 // for hw 2
 const string serviceName = "message-api";
@@ -108,6 +109,18 @@ app.MapHealthChecks("/healthCheck", new HealthCheckOptions
                     [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
                 }
 });
+
+
+var handlerInstance = app.Services.GetRequiredService<MustafaHandler>();     // handler instance
+
+app.MapGet("/Mustafa-log-request-1", () => handlerInstance.HandleRequest1()); // minimal API for 
+app.MapGet("/Mustafa-log-request-2", () => handlerInstance.HandleRequest3());
+app.MapGet("/Mustafa-log-request-3", () => handlerInstance.HandleRequest3());
+app.MapGet("/Mustafa-log-request-4", () => handlerInstance.HandleRequest4());
+app.MapGet("/Mustafa-log-request-5", () => handlerInstance.HandleRequest5());
+
+
+
 
 app.UseStaticFiles();
 app.UseAntiforgery();
