@@ -8,7 +8,7 @@ partial class MustafaHandler(ILogger<MustafaHandler> logger)
 
     public string HandleRequest2()
     {
-        LogHandleRequest2(logger, "TMustafa-log-request-2");
+        LogHandleRequest2(logger, "Mustafa-log-request-2");
         return "Hit the end point-2";
     }
 

@@ -114,7 +114,7 @@ app.MapHealthChecks("/healthCheck", new HealthCheckOptions
 var handlerInstance = app.Services.GetRequiredService<MustafaHandler>();     // handler instance
 
 app.MapGet("/Mustafa-log-request-1", () => handlerInstance.HandleRequest1()); // minimal API for 
-app.MapGet("/Mustafa-log-request-2", () => handlerInstance.HandleRequest3());
+app.MapGet("/Mustafa-log-request-2", () => handlerInstance.HandleRequest2());
 app.MapGet("/Mustafa-log-request-3", () => handlerInstance.HandleRequest3());
 app.MapGet("/Mustafa-log-request-4", () => handlerInstance.HandleRequest4());
 app.MapGet("/Mustafa-log-request-5", () => handlerInstance.HandleRequest5());
