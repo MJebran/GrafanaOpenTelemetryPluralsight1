@@ -36,7 +36,8 @@ partial class MustafaHandler(ILogger<MustafaHandler> logger)
     [LoggerMessage(LogLevel.Warning, "ExampleHandler.HandleRequest2 was called with {message}")]
     public static partial void LogHandleRequest2(ILogger logger, string message);
 
-    [LoggerMessage(LogLevel.Debug, "ExampleHandler.HandleRequest3 was called with {message}")]
+   // [LoggerMessage(LogLevel.Debug, "ExampleHandler.HandleRequest3 was called with {message}")]
+    [LoggerMessage(LogLevel.Error, "ExampleHandler.HandleRequest3 was called with {message}")]
     public static partial void LogHandleRequest3(ILogger logger, string message);
 
     [LoggerMessage(LogLevel.Information, "ExampleHandler.HandleRequest4 was called with {message}")]

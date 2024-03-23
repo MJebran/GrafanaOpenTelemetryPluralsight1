@@ -26,7 +26,11 @@ Buy Tickets and scan your ticket at the gate.<br />
     {
         using var myActivity = DiagnosticsConfiguration.MyActivitySource2.StartActivity("Initialized");
         Meters.NumRequestsCounter.Add(1);
+        Meters.upDownCounter.Add(1);
+
     } 
+
+
 
 
 }
