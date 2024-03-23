@@ -66,6 +66,7 @@ builder.Services.AddOpenTelemetry()
     )
     .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
+        .AddMeter("Counters")
         .AddMeter("OpenTeleApi.Api")
         .AddConsoleExporter()
         .AddPrometheusExporter()

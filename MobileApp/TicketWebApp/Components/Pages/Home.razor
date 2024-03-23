@@ -1,4 +1,6 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+
 
 <PageTitle>Home</PageTitle>
 
@@ -11,10 +13,18 @@ Buy Tickets and scan your ticket at the gate.<br />
 <button @onclick="trace" >Trace</button>
 <button @onclick="trace">Trace2</button>
 @code{
+
+    public static int observableVar = 1; 
+    public static int observableUpDownVar = 1;
+    public static int observableGuageVar = 1;
+
+
     private void trace()
     {
         using var myActivity = DiagnosticsConfiguration.MyActivitySource1.StartActivity("Button pressed");
         Meters.NumRequestsCounter.Add(1);
+        Meters.upDownCounter.Add(2);
+        Meters.histogram.Record(1);
     }   
 
     private void trace2()
@@ -26,7 +36,8 @@ Buy Tickets and scan your ticket at the gate.<br />
     {
         using var myActivity = DiagnosticsConfiguration.MyActivitySource2.StartActivity("Initialized");
         Meters.NumRequestsCounter.Add(1);
-        Meters.upDownCounter.Add(1);
+        Meters.upDownCounter.Add(2);
+        Meters.histogram.Record(1);
 
     } 
 
