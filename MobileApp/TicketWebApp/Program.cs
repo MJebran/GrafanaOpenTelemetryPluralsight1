@@ -31,6 +31,7 @@ builder.Services.AddSingleton<IEventService, ApiEventService>();
 builder.Services.AddDbContextFactory<PostgresContext>(optionsBuilder => optionsBuilder.UseNpgsql("Name=TicketsDB"));
 builder.Services.AddScoped<EmailSender>();
 builder.Services.AddSingleton<MustafaHandler>();// added this for the handler class
+builder.Services.AddSingleton<Meters>();
 
 // for hw 2
 const string serviceName = "message-api";
@@ -119,6 +120,8 @@ app.MapGet("/Mustafa-log-request-2", () => handlerInstance.HandleRequest2());
 app.MapGet("/Mustafa-log-request-3", () => handlerInstance.HandleRequest3());
 app.MapGet("/Mustafa-log-request-4", () => handlerInstance.HandleRequest4());
 app.MapGet("/Mustafa-log-request-5", () => handlerInstance.HandleRequest5());
+var metric = app.Services.GetRequiredService<Meters>();
+app.MapGet("/counterMetric", () => metric.CallMetrics());
 
 
 
