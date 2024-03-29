@@ -156,6 +156,7 @@ services:
       # - CERTPROVIDER= #optional
       - DUCKDNSTOKEN=7543a875-fd31-489b-a102-01b8440dfa7f
       - STAGING=false #optional
+      - EXTRA_DOMAINS=mustafa-grafana.duckdns.org
     volumes:
       - mustafa_data:/config
       - ./nginx-default.conf:/config/nginx/site-confs/mustafa.conf
