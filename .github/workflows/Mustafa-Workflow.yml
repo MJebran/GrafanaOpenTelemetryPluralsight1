@@ -29,6 +29,13 @@ jobs:
           cd ./MobileApp/MustafasDockerFile
           docker compose down
           docker compose up --build -d
+
+      - name: deploy
+        run: |
+          docker build -t 144.17.92.12:5000/mustafa/blazor-web:1
+          docker push 144.17.92.12:5000/mustafa/blazor-web:1
+          kubectl apply -f kube/
+
       
 
       - name: "Notifies Teams Channel"

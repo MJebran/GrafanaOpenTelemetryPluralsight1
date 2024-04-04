@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mustafa
+  name: blazor-web-deployment
+  labels:
+    app: blazor-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blazor-web
+  template:
+    metadata:
+      labels:
+        app: blazor-web
+    spec:
+      containers:
+      - name: blazor-web
+        image: 144.17.92.12:5000/mustafa/blazor-web:1
+        ports:
+        - containerPort: 8080

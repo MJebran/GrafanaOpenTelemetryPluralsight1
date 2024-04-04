@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: mustafa
+  name: blazor-web-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mustafa-kube.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: blazor-web-service
+            port:
+              number: 80
