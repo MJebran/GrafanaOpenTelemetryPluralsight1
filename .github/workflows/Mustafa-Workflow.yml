@@ -32,7 +32,7 @@ jobs:
 
       - name: deploy
         run: |
-          cd ./GrafanaOpenTelemetryPluralsight1
+          
           docker build -t 144.17.92.12:5000/mustafa/blazor-web:1 .
           docker push 144.17.92.12:5000/mustafa/blazor-web:1
           kubectl apply -f kube/
