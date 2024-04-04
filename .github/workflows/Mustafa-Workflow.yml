@@ -24,11 +24,11 @@ jobs:
         run: |
           cd ./MobileApp/
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
-      - name: deploying
-        run: |
-          cd ./MobileApp/MustafasDockerFile
-          docker compose down
-          docker compose up --build -d
+      # - name: deploying
+      #   run: |
+      #     cd ./MobileApp/MustafasDockerFile
+      #     docker compose down
+      #     docker compose up --build -d
 
       - name: deploy
         run: |
