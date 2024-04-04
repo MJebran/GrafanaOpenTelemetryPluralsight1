@@ -24,15 +24,15 @@ jobs:
         run: |
           cd ./MobileApp/
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
-      # - name: deploying
-      #   run: |
-      #     cd ./MobileApp/MustafasDockerFile
-      #     docker compose down
-      #     docker compose up --build -d
+      - name: deploying
+        run: |
+          cd ./MobileApp/MustafasDockerFile
+          docker compose down
+          docker compose up --build -d
 
       - name: deploy
         run: |
-          docker build -t 144.17.92.12:5000/mustafa/blazor-web:1
+          docker build -t 144.17.92.12:5000/mustafa/blazor-web:1 .
           docker push 144.17.92.12:5000/mustafa/blazor-web:1
           kubectl apply -f kube/
 
