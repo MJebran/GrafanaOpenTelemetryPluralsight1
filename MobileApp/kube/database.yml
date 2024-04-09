@@ -8,7 +8,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Gi
 ---
 
 apiVersion: apps/v1
@@ -43,15 +43,15 @@ spec:
         volumeMounts:
         - name: postgresstorage
           mountPath: /var/lib/postgresql/data
-        # - name: init-script
-        #   mountPath: /docker-entrypoint-initdb.d
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: postgresstorage
         persistentVolumeClaim:
           claimName: blazor-web-db-pvc
-      # - name: init-script
-      #   configMap:
-      #     name: blazor-web-postgres-init
+      - name: init-script
+        configMap:
+          name: blazor-web-postgres-init
 ---
 apiVersion: v1
 kind: Service

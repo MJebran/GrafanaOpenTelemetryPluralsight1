@@ -20,3 +20,6 @@ spec:
         image: 144.17.92.12:5000/mustafa/blazor-web:1
         ports:
         - containerPort: 8080
+        env:
+        - name: MYDATABASECONNECTIONSTRING
+          value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
