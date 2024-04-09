@@ -35,7 +35,7 @@ jobs:
           cd ./MobileApp
           docker build -t 144.17.92.12:5000/mustafa/blazor-web:1 .
           docker push 144.17.92.12:5000/mustafa/blazor-web:1
-
+          kubectl delete configmap -n mustafa blazor-web-postgres-init
           kubectl -n mustafa create configmap blazor-web-postgres-init --from-file=init.sql
           
           kubectl apply -f kube/
