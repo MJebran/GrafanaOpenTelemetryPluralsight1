@@ -35,9 +35,9 @@ spec:
         - containerPort: 5432
         env:
         - name: POSTGRES_USER
-          value: mustafa-user
+          value: postgres
         - name: POSTGRES_PASSWORD
-          value: mustafa-password
+          value: postgres
         - name: POSTGRES_DB
           value: mustafadb
         volumeMounts:

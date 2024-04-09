@@ -22,4 +22,4 @@ spec:
         - containerPort: 8080
         env:
         - name: TicketsDB
-          value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
+          value: Server=blazor-web-db-service;password=postgres;user id=postgres;database=mustafadb;
