@@ -17,13 +17,14 @@ spec:
     spec:
       containers:
       - name: otel-collector
-        image: 144.17.92.12:5000/mustafa/otel-collector:1
+        image: /etc/otel-collector-config.yaml   # added this from otel-collector.yaml file need to check it
         ports:
         - containerPort: 4317
         volumeMounts:
         - name: otel-config-volume
-          mountPath: /etc/otel-collector-config.yaml
+          mountPath: /etc/otelcol-contrib/config.yaml
+          subPath: otel-collector-config.yml
       volumes:
       - name: otel-config-volume
         configMap: 
-          name: blazor-web-postgres-init
+          name: otel-collector
