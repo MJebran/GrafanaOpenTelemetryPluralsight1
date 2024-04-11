@@ -35,12 +35,20 @@ jobs:
           cd ./MobileApp
           docker build -t 144.17.92.12:5000/mustafa/blazor-web:1 .
           docker push 144.17.92.12:5000/mustafa/blazor-web:1
-          kubectl delete configmap -n mustafa blazor-web-postgres-init
+          
+          cd kube-configs
+
+          kubectl -n mustafa delete configmap blazor-web-postgres-init || true
           kubectl -n mustafa create configmap blazor-web-postgres-init --from-file=init.sql
+
+          kubectl -n mustafa delete configmap grafana-datasource || true
+          kubectl -n mustafa create configmap grafana-datasource --from-file=grafana-datasource.yml
+
+          kubectl -n mustafa delete configmap otel-collector || true
+          kubectl -n mustafa create configmap otel-collector --from-file=otel-collector-config.yml
           
           kubectl apply -f kube/
 
-      # 
 
       - name: "Notifies Teams Channel"
         uses: dchourasia/ms-teams-notification@1.0  #that is a git lib for templete that I saw in Carlose and used 
@@ -48,5 +56,3 @@ jobs:
         with:
             github-token: ${{ github.token }}
             webhook-uri: ${{ secrets.MUSTAFAHOC }}
-
-# 
