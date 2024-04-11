@@ -23,10 +23,7 @@ spec:
         volumeMounts:
         - name: otel-config-volume
           mountPath: /etc/otel-collector-config.yaml
-        # env:
-        # - name: TicketsDB
-        #   value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
-        volumes:
-        - name: otel-config-volume
-          configMap: 
-          name: blazor-web-postgres-init
+      volumes:
+      - name: otel-config-volume
+        configMap: 
+        name: blazor-web-postgres-init

@@ -20,7 +20,3 @@ spec:
         image: otel/opentelemetry-collector-contrib:0.75.0
         ports:
         - containerPort: 4317
-        # env:
-        # - name: TicketsDB
-        #   value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
-        # # -name: DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE= false
