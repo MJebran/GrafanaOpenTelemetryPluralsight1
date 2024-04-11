@@ -26,4 +26,4 @@ spec:
       volumes:
       - name: otel-config-volume
         configMap: 
-        name: blazor-web-postgres-init
+          name: blazor-web-postgres-init
