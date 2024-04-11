@@ -38,14 +38,15 @@ jobs:
           
           cd kube-configs
 
-          kubectl -n mustafa delete configmap blazor-web-postgres-init || true
-          kubectl -n mustafa create configmap blazor-web-postgres-init --from-file=init.sql
+            # kubectl -n mustafa delete configmap blazor-web-postgres-init || true
+            # kubectl -n mustafa create configmap blazor-web-postgres-init --from-file=init.sql
 
-          kubectl -n mustafa delete configmap grafana-datasource || true
-          kubectl -n mustafa create configmap grafana-datasource --from-file=grafana-datasource.yml
+            kubectl -n mustafa delete configmap grafana-datasource || true
+            kubectl -n mustafa create configmap grafana-datasource --from-file=grafana-datasource.yml
 
-          kubectl -n mustafa delete configmap otel-collector || true
-          kubectl -n mustafa create configmap otel-collector --from-file=otel-collector-config.yml
+            kubectl -n mustafa delete configmap otel-collector || true
+            kubectl -n mustafa create configmap otel-collector --from-file=otel-collector-config.yml
+          cd ..
           
           kubectl apply -f kube/
 
