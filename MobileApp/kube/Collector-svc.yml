@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: mustafa
+  name: otel-collector-service
+spec:
+  type: ClusterIP
+  selector:
+    app: otel-collector
+  ports:
+    - port: 4317
+      targetPort: 4317

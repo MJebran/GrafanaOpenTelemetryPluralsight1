@@ -17,9 +17,10 @@ spec:
     spec:
       containers:
       - name: blazor-web
-        image: 144.17.92.12:5000/mustafa/blazor-web:1
+        image: otel/opentelemetry-collector-contrib:0.75.0
         ports:
-        - containerPort: 8080
-        env:
-        - name: TicketsDB
-          value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
+        - containerPort: 4317
+        # env:
+        # - name: TicketsDB
+        #   value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
+        # # -name: DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE= false

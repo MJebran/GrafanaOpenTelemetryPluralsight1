@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: mustafa
+  name: grafana-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: grafana.mustafa-kube.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana-service
+            port:
+              number: 3000

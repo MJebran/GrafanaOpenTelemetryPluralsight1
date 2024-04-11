@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mustafa
+  name: otel-collector-deployment
+  labels:
+    app: otel-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+      - name: otel-collector
+        image: 144.17.92.12:5000/mustafa/otel-collector:1
+        ports:
+        - containerPort: 4317
+        volumeMounts:
+        - name: otel-config-volume
+          mountPath: /etc/otel-collector-config.yaml
+        # env:
+        # - name: TicketsDB
+        #   value: Server=blazor-web-db-service;password=mustafa-password;user id=mustafa-user;database=mustafadb;
+        volumes:
+        - name: otel-config-volume
+          configMap: 
+          name: blazor-web-postgres-init
