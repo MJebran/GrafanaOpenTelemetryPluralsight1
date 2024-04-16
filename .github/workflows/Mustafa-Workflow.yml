@@ -47,8 +47,11 @@ jobs:
             kubectl -n mustafa delete configmap otel-collector || true
             kubectl -n mustafa create configmap otel-collector --from-file=otel-collector-config.yml
           cd ..
-          
-          kubectl apply -f kube/
+
+          for file in ./kube; do
+            echo "Applying $file"
+            kubectl apply -f "$file"
+          done
 
 
       - name: "Notifies Teams Channel"

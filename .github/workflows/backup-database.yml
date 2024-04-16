@@ -1,0 +1,13 @@
+name: backup database
+on: 
+    - workflow_dispatch
+jobs:
+    backup:
+        runs-on: self-hosted
+        steps:
+            - name: backup
+              run: |
+                CONTAINER_NAME=$(kubectl -n mustafa get pods --no-headers -o custom-columns=":metadata.name" | grep "blazor-web-db-deployment")
+                kubectl -n mustafa exec -t blazor-web-db-deployment-7b6fd6cc7b-jxqt9 -- \
+                  pg_dumpall -c -U mustafa-user \
+                  > /home/mustafa/dump.sql
