@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: otel-collector
-        image: /etc/otel-collector-config.yaml   # added this from otel-collector.yaml file need to check it
+        image: otel/opentelemetry-collector-contrib:0.75.0  # added this from otel-collector.yaml file need to check it
         ports:
         - containerPort: 4317
         volumeMounts:
