@@ -11,3 +11,5 @@ jobs:
                 kubectl -n mustafa exec -t blazor-web-db-deployment-7b6fd6cc7b-jxqt9 -- \
                   pg_dumpall -c -U mustafa-user \
                   > /home/mustafa/dump.sql
+
+                #   https://stackoverflow.com/questions/39210274/how-do-i-backup-a-database-in-docker

@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: blazor-web
-        image: otel/opentelemetry-collector-contrib:0.75.0
+        image: 144.17.92.12:5000/mustafa/blazor-web:${GITHUB_RUN_ID}
         ports:
         - containerPort: 4317

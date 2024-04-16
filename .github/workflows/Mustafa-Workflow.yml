@@ -33,8 +33,8 @@ jobs:
       - name: deploy
         run: |
           cd ./MobileApp
-          docker build -t 144.17.92.12:5000/mustafa/blazor-web:1 .
-          docker push 144.17.92.12:5000/mustafa/blazor-web:1
+          docker build -t 144.17.92.12:5000/mustafa/blazor-web:$GITHUB_RUN_ID .
+          docker push 144.17.92.12:5000/mustafa/blazor-web:$GITHUB_RUN_ID
           
           cd kube-configs
 
@@ -48,9 +48,10 @@ jobs:
             kubectl -n mustafa create configmap otel-collector --from-file=otel-collector-config.yml
           cd ..
 
-          for file in ./kube; do
+          RUN_ID=${{ github.run_id}}
+          for file in ./kube/*; do
             echo "Applying $file"
-            kubectl apply -f "$file"
+            cat $file | envsubst | kubectl apply -f -
           done
 
 
