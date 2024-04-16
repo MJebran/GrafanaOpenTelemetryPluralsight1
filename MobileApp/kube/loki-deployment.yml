@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mustafa
+  name: blazor-web-deployment
+  labels:
+    app: blazor-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blazor-web
+  template:
+    metadata:
+      labels:
+        app: blazor-web
+    spec:
+      containers:
+      - name: blazor-web
+        image: 144.17.92.12:5000/ahmad/blazor-web:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: collector_url
+          value: http://otel-collector-service:4317
+        env:
+        - name: db
+          value: Server=blazor-web-db-pvc;password=mustafa-password;user id=mustafa-user;database=mustafadb;
