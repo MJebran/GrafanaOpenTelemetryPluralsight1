@@ -21,7 +21,7 @@ jobs:
                 kubectl -n mustafa-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
                 kubectl -n mustafa-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=init.sql
 
-                docker build -t 144.17.92.12:5000/mustafa/blazor-web:$RUN_SALT
+                docker build -t 144.17.92.12:5000/mustafa/blazor-web:$RUN_SALT .
                 docker push 144.17.92.12:5000/mustafa/blazor-web:$RUN_SALT  
                 
                 for file in  ./kube-pr/*; do 
