@@ -1,0 +1,15 @@
+name: pull request environmnet
+on: 
+    pull_request:
+        types: [opened]
+jobs: 
+    deploy-to-kubernetes:
+        runs-on: self-hosted
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+            - name: deploy to kubernetes
+              run: |
+                export PULL_REQUEST_ID={{ github.event.pull_request.number }}
+                echo PULL_REQUEST_ID
+                kubectl create namespace mustafa-pr-PULL_REQUEST_ID
