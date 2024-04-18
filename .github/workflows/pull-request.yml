@@ -1,7 +1,7 @@
 name: pull request environmnet
 on: 
     pull_request:
-        types: [opened]
+        types: [opened, reopened]
 jobs: 
     deploy-to-kubernetes:
         runs-on: self-hosted
@@ -11,8 +11,8 @@ jobs:
             - name: deploy to kubernetes
               run: |
                 export PULL_REQUEST_ID={{ github.event.pull_request.number }}
-                echo PULL_REQUEST_ID
-                kubectl create namespace mustafa-pr-PULL_REQUEST_ID || true
+                echo $PULL_REQUEST_ID
+                kubectl create namespace mustafa-pr-$PULL_REQUEST_ID || true
 
-                kubectl -n mustafa-pr-PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
-                kubectl -n mustafa-pr-PULL_REQUEST_ID create configmap blazor-web-postgres-init -from-file=init.sql
+                kubectl -n mustafa-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
+                kubectl -n mustafa-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init -from-file=init.sql
