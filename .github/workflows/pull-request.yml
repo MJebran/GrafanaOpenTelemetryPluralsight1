@@ -14,5 +14,6 @@ jobs:
                 echo $PULL_REQUEST_ID
                 kubectl create namespace mustafa-pr-$PULL_REQUEST_ID || true
 
+                cd ./MobileApp/kube-configs
                 kubectl -n mustafa-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
                 kubectl -n mustafa-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=init.sql
