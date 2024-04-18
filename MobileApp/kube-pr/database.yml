@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: ${NAMESPACE}
+  name: blazor-web-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1.5Gi
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ${NAMESPACE}
+  name: blazor-web-db-deployment
+  labels:
+    app: blazor-web-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blazor-web-db
+  template:
+    metadata:
+      labels:
+        app: blazor-web-db
+    spec:
+      containers:
+      - name: blazor-web-db
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: mustafa-user
+        - name: POSTGRES_PASSWORD
+          value: mustafa-password
+        - name: POSTGRES_DB
+          value: mustafadb
+        volumeMounts:
+        - name: postgresstorage
+          mountPath: /var/lib/postgresql/data
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: postgresstorage
+        persistentVolumeClaim:
+          claimName: blazor-web-db-pvc
+      - name: init-script
+        configMap:
+          name: blazor-web-postgres-init
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ${NAMESPACE}
+  name: blazor-web-db-service
+spec:
+  type: ClusterIP
+  selector:
+    app: blazor-web-db
+  ports:
+    - port: 5432
+      targetPort: 5432

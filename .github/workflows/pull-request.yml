@@ -12,8 +12,19 @@ jobs:
               run: |
                 export PULL_REQUEST_ID=${{ github.event.pull_request.number }}
                 echo $PULL_REQUEST_ID
+                export RUN_SALT="pr-${PULL_REQUEST_ID}-${GITHUB_RUN_ID}"
+                export NAMESPACE="mustafa-pr-$PULL_REQUEST_ID"
+                
                 kubectl create namespace mustafa-pr-$PULL_REQUEST_ID || true
 
                 cd ./MobileApp/kube-configs
                 kubectl -n mustafa-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
                 kubectl -n mustafa-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=init.sql
+
+                docker build -t 144.17.92.12:5000/mustafa/blazor-web:$RUN_SALT
+                docker push 144.17.92.12:5000/mustafa/blazor-web:$RUN_SALT  
+                
+                for file in  ./kube-pr/*; do 
+                    echo "Applying $file"
+                    cat $file | envsubst | kubectl apply -f -
+                done
