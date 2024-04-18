@@ -12,4 +12,7 @@ jobs:
               run: |
                 export PULL_REQUEST_ID={{ github.event.pull_request.number }}
                 echo PULL_REQUEST_ID
-                kubectl create namespace mustafa-pr-PULL_REQUEST_ID
+                kubectl create namespace mustafa-pr-PULL_REQUEST_ID || true
+
+                kubectl -n mustafa-pr-PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
+                kubectl -n mustafa-pr-PULL_REQUEST_ID create configmap blazor-web-postgres-init -from-file=init.sql
